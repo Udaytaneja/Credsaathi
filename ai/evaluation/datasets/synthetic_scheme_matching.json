@@ -1,0 +1,20 @@
+[
+  {
+    "eval_id": "eval_match_001",
+    "description": "Women Entrepreneur Scheme Matching",
+    "applicant_category": "Women",
+    "income_annual": 350000.0,
+    "candidate_scheme_ids": ["SCH_WOMEN_01", "SCH_AGRI_02", "SCH_GEN_03"],
+    "expected_top_scheme_id": "SCH_WOMEN_01",
+    "expected_eligible_ids": ["SCH_WOMEN_01"]
+  },
+  {
+    "eval_id": "eval_match_002",
+    "description": "Agricultural Farmer Subsidy Scheme Matching",
+    "applicant_category": "Farmer",
+    "income_annual": 200000.0,
+    "candidate_scheme_ids": ["SCH_AGRI_02", "SCH_WOMEN_01"],
+    "expected_top_scheme_id": "SCH_AGRI_02",
+    "expected_eligible_ids": ["SCH_AGRI_02"]
+  }
+]

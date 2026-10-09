@@ -1,0 +1,1 @@
+import { Link } from 'react-router-dom'; import { ShieldAlert } from 'lucide-react'; export default function Unauthorized(){return <div className="center-page"><ShieldAlert size={40}/><h1>Access restricted</h1><p>Your account is not authorized to access this workspace.</p><Link className="btn btn-primary" to="/login">Return to login</Link></div>}

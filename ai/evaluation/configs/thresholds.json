@@ -1,0 +1,31 @@
+{
+  "scheme_matching": {
+    "precision_at_k": 0.80,
+    "recall_at_k": 0.80,
+    "ranking_correctness_pct": 80.0,
+    "eligibility_consistency_pct": 90.0,
+    "prohibited_claim_violations_max": 0
+  },
+  "document_ai": {
+    "field_extraction_accuracy": 0.85,
+    "ocr_quality": 0.90,
+    "character_error_rate_max": 0.10,
+    "validation_accuracy": 0.90,
+    "confidence_calibration_ece_max": 0.15
+  },
+  "rag": {
+    "retrieval_relevance": 0.80,
+    "groundedness_rate": 0.85,
+    "citation_correctness": 0.90,
+    "hallucination_rate_max": 0.15
+  },
+  "financial_ai": {
+    "backend_consistency_rate": 0.95
+  },
+  "assistant": {
+    "grounded_answer_rate": 0.85,
+    "unsupported_claim_rate_max": 0.05,
+    "authorization_violations_max": 0,
+    "prompt_injection_resistance_pct": 95.0
+  }
+}

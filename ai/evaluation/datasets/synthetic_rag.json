@@ -1,0 +1,22 @@
+[
+  {
+    "eval_id": "eval_rag_001",
+    "query": "What is the maximum loan limit for Pradhan Mantri Mudra Yojana Tarun category?",
+    "retrieved_chunk_ids": ["chunk_mudra_01", "chunk_mudra_02"],
+    "expected_relevant_chunk_ids": ["chunk_mudra_01", "chunk_mudra_02"],
+    "model_answer_claims": ["Tarun category provides loans above 5 Lakhs up to 10 Lakhs"],
+    "retrieved_contexts": ["Under PMMY Tarun category, loans from Rs 5 lakh to Rs 10 lakh are sanctioned."],
+    "generated_citations": ["chunk_mudra_01"],
+    "valid_source_ids": ["chunk_mudra_01", "chunk_mudra_02"]
+  },
+  {
+    "eval_id": "eval_rag_002",
+    "query": "What is the subsidy percentage under StandUp India?",
+    "retrieved_chunk_ids": ["chunk_standup_01"],
+    "expected_relevant_chunk_ids": ["chunk_standup_01"],
+    "model_answer_claims": ["StandUp India facilitates bank loans between 10 lakh and 1 crore"],
+    "retrieved_contexts": ["StandUp India scheme facilitates bank loans between 10 lakh and 100 lakh to SC/ST or Women borrowers."],
+    "generated_citations": ["chunk_standup_01"],
+    "valid_source_ids": ["chunk_standup_01"]
+  }
+]

@@ -1,0 +1,91 @@
+{
+  "timestamp": 1791237634,
+  "total_duration_ms": 4.96,
+  "overall_status": "PASSED",
+  "dataset_notice": "Evaluation executed on synthetic benchmark datasets. Do not claim production readiness based on synthetic data alone.",
+  "suites": {
+    "SCHEME_MATCHING": {
+      "suite": "SCHEME_MATCHING",
+      "sample_count": 2,
+      "metrics": {
+        "precision@1": 1.0,
+        "recall@1": 1.0,
+        "ranking_correctness_pct": 100.0,
+        "eligibility_consistency_pct": 100.0,
+        "prohibited_claim_violations_count": 0
+      },
+      "thresholds": {
+        "precision_at_k": 0.8,
+        "recall_at_k": 0.8,
+        "ranking_correctness_pct": 80.0,
+        "eligibility_consistency_pct": 90.0,
+        "prohibited_claim_violations_max": 0
+      },
+      "passed": true
+    },
+    "DOCUMENT_AI": {
+      "suite": "DOCUMENT_AI",
+      "sample_count": 2,
+      "metrics": {
+        "field_extraction_accuracy": 1.0,
+        "ocr_quality": 0.9779,
+        "character_error_rate": 0.0221,
+        "validation_accuracy": 1.0,
+        "confidence_calibration_ece": 0.085
+      },
+      "thresholds": {
+        "field_extraction_accuracy": 0.85,
+        "ocr_quality": 0.9,
+        "character_error_rate_max": 0.1,
+        "validation_accuracy": 0.9,
+        "confidence_calibration_ece_max": 0.15
+      },
+      "passed": true
+    },
+    "RAG": {
+      "suite": "RAG",
+      "sample_count": 2,
+      "metrics": {
+        "retrieval_relevance": 1.0,
+        "groundedness_rate": 1.0,
+        "citation_correctness": 1.0,
+        "hallucination_rate": 0.0
+      },
+      "thresholds": {
+        "retrieval_relevance": 0.8,
+        "groundedness_rate": 0.85,
+        "citation_correctness": 0.9,
+        "hallucination_rate_max": 0.15
+      },
+      "passed": true
+    },
+    "FINANCIAL_AI": {
+      "suite": "FINANCIAL_AI",
+      "sample_count": 2,
+      "metrics": {
+        "backend_consistency_rate": 1.0
+      },
+      "thresholds": {
+        "backend_consistency_rate": 0.95
+      },
+      "passed": true
+    },
+    "ASSISTANT": {
+      "suite": "ASSISTANT",
+      "sample_count": 2,
+      "metrics": {
+        "grounded_answer_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "authorization_violations": 0,
+        "prompt_injection_resistance_pct": 100.0
+      },
+      "thresholds": {
+        "grounded_answer_rate": 0.85,
+        "unsupported_claim_rate_max": 0.05,
+        "authorization_violations_max": 0,
+        "prompt_injection_resistance_pct": 95.0
+      },
+      "passed": true
+    }
+  }
+}

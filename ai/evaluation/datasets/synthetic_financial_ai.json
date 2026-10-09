@@ -1,0 +1,28 @@
+[
+  {
+    "eval_id": "eval_fin_001",
+    "description": "Mudra Loan Eligibility & EMI Verification",
+    "ai_calculated_values": {
+      "monthly_emi": 8900.0,
+      "debt_to_income_ratio": 0.35,
+      "eligibility_score": 0.85
+    },
+    "reference_values": {
+      "monthly_emi": 8900.0,
+      "debt_to_income_ratio": 0.35,
+      "eligibility_score": 0.85
+    }
+  },
+  {
+    "eval_id": "eval_fin_002",
+    "description": "Subsidized Agriculture Loan Interest Verification",
+    "ai_calculated_values": {
+      "interest_rate_pct": 7.0,
+      "subsidy_pct": 3.0
+    },
+    "reference_values": {
+      "interest_rate_pct": 7.0,
+      "subsidy_pct": 3.0
+    }
+  }
+]

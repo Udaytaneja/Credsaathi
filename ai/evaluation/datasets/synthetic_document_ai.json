@@ -1,0 +1,32 @@
+[
+  {
+    "eval_id": "eval_doc_001",
+    "document_type": "PAN_CARD",
+    "raw_ocr_text": "INCOME TAX DEPARTMENT GOVT OF INDIA PANNAM ABCDE1234F NAME RAMESH KUMAR",
+    "expected_ocr_text": "INCOME TAX DEPARTMENT GOVT OF INDIA PAN ABCDE1234F NAME RAMESH KUMAR",
+    "expected_extracted_fields": {
+      "pan_number": "ABCDE1234F",
+      "name": "RAMESH KUMAR"
+    },
+    "model_extracted_fields": {
+      "pan_number": "ABCDE1234F",
+      "name": "RAMESH KUMAR"
+    },
+    "model_confidence": 0.95
+  },
+  {
+    "eval_id": "eval_doc_002",
+    "document_type": "INCOME_CERTIFICATE",
+    "raw_ocr_text": "ANNUAL INCOME RS 450000 ISSUED BY TEHSILDAR",
+    "expected_ocr_text": "ANNUAL INCOME RS 450000 ISSUED BY TEHSILDAR",
+    "expected_extracted_fields": {
+      "annual_income": "450000",
+      "issuing_authority": "TEHSILDAR"
+    },
+    "model_extracted_fields": {
+      "annual_income": "450000",
+      "issuing_authority": "TEHSILDAR"
+    },
+    "model_confidence": 0.88
+  }
+]

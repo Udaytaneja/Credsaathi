@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: credsaathi-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: credsaathi_user
+      POSTGRES_PASSWORD: credsaathi_password
+      POSTGRES_DB: credsaathi
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U credsaathi_user -d credsaathi"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    name: credsaathi_postgres_data

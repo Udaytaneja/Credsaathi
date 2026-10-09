@@ -204,3 +204,10 @@ def test_saakshi_assistant_ai_timeout_graceful_handling(client, auth_headers):
         assert "unable to reach the AI assistant" in data["answer"]
         assert "timed out" not in data["answer"]  # Internal exception details stripped
 
+
+def test_production_safety_check():
+    from app.core.config import Settings
+
+    prod_settings = Settings(app_env="production", secret_key="change-this-in-production")
+    with pytest.raises(ValueError, match="CRITICAL SECURITY ERROR"):
+        prod_settings.check_production_safety()

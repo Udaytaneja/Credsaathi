@@ -1,14 +1,24 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.router import api_v1_router
 from app.core.config import settings
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Enforce production security check on startup
+    settings.check_production_safety()
+    yield
+
 app = FastAPI(
     title=settings.app_name,
     description="Backend API for the CredSaathi financial platform",
     version=settings.app_version,
+    lifespan=lifespan,
 )
+
 
 # Configure CORS
 app.add_middleware(

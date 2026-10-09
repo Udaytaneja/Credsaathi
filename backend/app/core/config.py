@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     algorithm: str = "HS256"
 
     # AI Microservice Integration
-    ai_service_url: str = "http://localhost:8000/api/v1/ai"
+    ai_service_url: str = "http://localhost:8001/api/v1/ai"
     ai_api_key: str = "credsaathi_secret_api_key_v1"
     ai_service_timeout: float = 10.0
 
@@ -56,6 +56,15 @@ class Settings(BaseSettings):
             for origin in self.cors_origins.split(",")
             if origin.strip()
         ]
+
+    def check_production_safety(self) -> None:
+        """Validate safety rules in non-development environments."""
+        if self.app_env.lower() in ("production", "prod"):
+            if "change_in_production" in self.secret_key or self.secret_key == "change-this-in-production":
+                raise ValueError("CRITICAL SECURITY ERROR: SECRET_KEY must be set securely in production!")
+            if self.ai_api_key == "credsaathi_secret_api_key_v1":
+                raise ValueError("CRITICAL SECURITY ERROR: AI_API_KEY must be set securely in production!")
+
 
 
 @lru_cache

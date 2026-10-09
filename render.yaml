@@ -1,0 +1,55 @@
+services:
+  # 1. AI Microservice Layer (Internal Web Service)
+  - type: web
+    name: credsaathi-ai
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn ai.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/ai/health
+    envVars:
+      - key: AI_ENVIRONMENT
+        value: production
+      - key: AI_DEBUG
+        value: "false"
+      - key: AI_API_KEYS
+        generateValue: true
+      - key: AI_DEFAULT_PROVIDER
+        value: mock-provider
+      - key: AI_DEFAULT_MODEL_NAME
+        value: mock-llm-v1
+
+  # 2. FastAPI Core Backend Service
+  - type: web
+    name: credsaathi-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: AI_SERVICE_URL
+        fromService:
+          type: web
+          name: credsaathi-ai
+          property: hostport
+      - key: AI_API_KEY
+        fromService:
+          type: web
+          name: credsaathi-ai
+          envVarKey: AI_API_KEYS
+      - key: DATABASE_URL
+        fromDatabase:
+          name: credsaathi-db
+          property: connectionString
+
+databases:
+  # 3. Managed PostgreSQL Database
+  - name: credsaathi-db
+    databaseName: credsaathi
+    user: credsaathi_user
+    plan: starter

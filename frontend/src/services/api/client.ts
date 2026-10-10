@@ -15,7 +15,8 @@ import type {
   UserSettings,
 } from '../../types';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+const rawBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+const BASE_URL = rawBaseUrl.replace(/\/+$/, '');
 
 export class ApiError extends Error {
   constructor(
@@ -37,7 +38,8 @@ export async function apiRequest<T>(path: string, init: RequestInit = {}): Promi
     ...((init.headers as Record<string, string>) || {}),
   };
 
-  const res = await fetch(`${BASE_URL}${path}`, {
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  const res = await fetch(`${BASE_URL}${normalizedPath}`, {
     ...init,
     headers,
   });

@@ -165,7 +165,7 @@ Invoke-RestMethod -Uri "http://localhost:8001/api/v1/ai/health"
 ### 2. Vercel Environment Setup (Frontend)
 1. Set Root Directory to `frontend/`.
 2. Add Environment Variables:
-   - `VITE_API_BASE_URL=https://credsaathi-backend.onrender.com/api/v1`
+   - `VITE_API_BASE_URL=https://credsaathi-backend-1voa.onrender.com/api/v1`
    - `VITE_DEMO_MODE=false`
 
 ---
@@ -175,7 +175,7 @@ Invoke-RestMethod -Uri "http://localhost:8001/api/v1/ai/health"
 Execute these steps after deployment to confirm live readiness:
 
 1. **Health Verification**:
-   - `GET https://credsaathi-backend.onrender.com/health` -> HTTP 200 `{"status": "healthy"}`
+   - `GET https://credsaathi-backend-1voa.onrender.com/health` -> HTTP 200 `{"status": "healthy"}`
    - `GET https://credsaathi-ai.onrender.com/api/v1/ai/health` -> HTTP 200 `{"status": "healthy"}`
 2. **Auth Verification**:
    - Register a new user at `https://credsaathi.vercel.app/register` and confirm successful JWT generation.

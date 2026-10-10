@@ -50,12 +50,18 @@ class Settings(BaseSettings):
         """Return CORS origins as a list of sanitized strings without trailing slashes."""
         default_origins = [
             "https://credsaathi.vercel.app",
+            "https://credsaathi-euuqbyvr-cod-x-titans.vercel.app",
             "http://localhost:3000",
             "http://localhost:5173",
         ]
         raw_origins = [o.strip() for o in self.cors_origins.split(",")] if self.cors_origins.strip() else default_origins
-        if self.app_env.lower() in ("production", "prod") and "https://credsaathi.vercel.app" not in raw_origins:
-            raw_origins.append("https://credsaathi.vercel.app")
+        if self.app_env.lower() in ("production", "prod"):
+            for origin in (
+                "https://credsaathi.vercel.app",
+                "https://credsaathi-euuqbyvr-cod-x-titans.vercel.app",
+            ):
+                if origin not in raw_origins:
+                    raw_origins.append(origin)
 
         origins: list[str] = []
         for item in raw_origins:

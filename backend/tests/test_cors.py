@@ -28,6 +28,20 @@ def test_cors_preflight_allowed_origin(client):
     assert response.headers.get("access-control-allow-credentials") == "true"
 
 
+def test_cors_preview_origin_allowed(client):
+    """Verify the current Vercel preview host is accepted explicitly without wildcard CORS."""
+    response = client.options(
+        "/api/v1/auth/register",
+        headers={
+            "Origin": "https://credsaathi-euuqbyvr-cod-x-titans.vercel.app",
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "content-type",
+        },
+    )
+    assert response.status_code == 200
+    assert response.headers.get("access-control-allow-origin") == "https://credsaathi-euuqbyvr-cod-x-titans.vercel.app"
+
+
 def test_cors_preflight_rejected_origin(client):
     """Verify OPTIONS preflight request for an unallowed origin is rejected."""
     response = client.options(

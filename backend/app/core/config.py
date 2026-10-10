@@ -47,15 +47,22 @@ class Settings(BaseSettings):
 
     @property
     def cors_origins_list(self) -> list[str]:
-        """Return CORS origins as a list."""
-        if not self.cors_origins:
-            return []
-
-        return [
-            origin.strip()
-            for origin in self.cors_origins.split(",")
-            if origin.strip()
+        """Return CORS origins as a list of sanitized strings without trailing slashes."""
+        default_origins = [
+            "https://credsaathi.vercel.app",
+            "http://localhost:3000",
+            "http://localhost:5173",
         ]
+        raw_origins = [o.strip() for o in self.cors_origins.split(",")] if self.cors_origins.strip() else default_origins
+        if self.app_env.lower() in ("production", "prod") and "https://credsaathi.vercel.app" not in raw_origins:
+            raw_origins.append("https://credsaathi.vercel.app")
+
+        origins: list[str] = []
+        for item in raw_origins:
+            cleaned = item.strip().rstrip("/")
+            if cleaned and cleaned not in origins:
+                origins.append(cleaned)
+        return origins
 
     def check_production_safety(self) -> None:
         """Validate safety rules in non-development environments."""
@@ -64,6 +71,8 @@ class Settings(BaseSettings):
                 raise ValueError("CRITICAL SECURITY ERROR: SECRET_KEY must be set securely in production!")
             if self.ai_api_key == "credsaathi_secret_api_key_v1":
                 raise ValueError("CRITICAL SECURITY ERROR: AI_API_KEY must be set securely in production!")
+            if "*" in self.cors_origins_list:
+                raise ValueError("CRITICAL SECURITY ERROR: Wildcard '*' CORS origin is not allowed in production with credentials!")
 
 
 

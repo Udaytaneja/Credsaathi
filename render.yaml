@@ -46,6 +46,8 @@ services:
         fromDatabase:
           name: credsaathi-db
           property: connectionString
+      - key: CORS_ORIGINS
+        value: https://credsaathi.vercel.app
 
 databases:
   # 3. Managed PostgreSQL Database

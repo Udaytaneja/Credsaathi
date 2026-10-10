@@ -57,6 +57,30 @@ def test_registration_success(client):
     assert "password_hash" not in data
 
 
+def test_registration_with_full_name_alias(client):
+    payload = {
+        "full_name": "Diagnostic Test User",
+        "email": "diagnostic.alias@credsaathi.in",
+        "password": "SecurePassword123!",
+        "role": "APPLICANT",
+    }
+    response = client.post("/api/v1/auth/register", json=payload)
+    assert response.status_code == 201
+    data = response.json()
+    assert data["user"]["name"] == "Diagnostic Test User"
+
+
+def test_registration_missing_name_fails_422(client):
+    payload = {
+        "email": "noname@credsaathi.in",
+        "password": "SecurePassword123!",
+    }
+    response = client.post("/api/v1/auth/register", json=payload)
+    assert response.status_code == 422
+    details = response.json()["detail"]
+    assert any("name" in str(err["loc"]) for err in details)
+
+
 def test_duplicate_registration_fails(client):
     payload = {
         "name": "Kashvi Jain",

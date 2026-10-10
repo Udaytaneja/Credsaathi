@@ -59,10 +59,24 @@ export async function apiRequest<T>(path: string, init: RequestInit = {}): Promi
       /* ignore JSON parse error */
     }
 
-    const errorMsg = (body?.detail || body?.message || 'Something went wrong. Please try again.') as string;
+    let errorMsg = 'Something went wrong. Please try again.';
+    if (typeof body?.detail === 'string') {
+      errorMsg = body.detail;
+    } else if (Array.isArray(body?.detail)) {
+      errorMsg = body.detail
+        .map((err: Record<string, unknown>) => {
+          const loc = Array.isArray(err.loc) ? err.loc.slice(1).join('.') : '';
+          const msg = (err.msg as string) || 'Invalid field';
+          return loc ? `${loc}: ${msg}` : msg;
+        })
+        .join('; ');
+    } else if (typeof body?.message === 'string') {
+      errorMsg = body.message;
+    }
+
     throw new ApiError(
       res.status,
-      typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg),
+      errorMsg,
       body?.code as string | undefined
     );
   }

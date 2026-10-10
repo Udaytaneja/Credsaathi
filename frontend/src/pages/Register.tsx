@@ -64,7 +64,11 @@ export default function Register() {
       navigate('/applicant/dashboard');
     } catch (err: unknown) {
       const errorObj = err as Error;
-      setError(errorObj.message || 'Registration failed. Please try again.');
+      if (errorObj.message === 'Failed to fetch' || errorObj.name === 'TypeError') {
+        setError('Unable to connect to CredSaathi server. Please check your connection or backend URL.');
+      } else {
+        setError(errorObj.message || 'Registration failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }

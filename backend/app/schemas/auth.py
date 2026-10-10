@@ -1,5 +1,6 @@
 import uuid
-from pydantic import BaseModel, EmailStr, Field
+from typing import Any
+from pydantic import BaseModel, EmailStr, Field, model_validator
 
 
 class RegisterRequest(BaseModel):
@@ -8,6 +9,14 @@ class RegisterRequest(BaseModel):
     password: str = Field(..., min_length=6, max_length=128)
     role: str = Field(default="APPLICANT", description="Requested role: APPLICANT or BANKER")
     organization_id: uuid.UUID | None = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def populate_name(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            if "name" not in data and "full_name" in data:
+                data["name"] = data["full_name"]
+        return data
 
 
 class LoginRequest(BaseModel):
